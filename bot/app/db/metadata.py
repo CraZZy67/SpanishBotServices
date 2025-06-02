@@ -2,12 +2,13 @@ from sqlalchemy import Integer, String
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import MappedAsDataclass
 from typing import Optional
 
 
 class Base(DeclarativeBase): pass
 
-class User(Base):
+class User(MappedAsDataclass, Base):
     __tablename__ = "users"
     
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -18,6 +19,3 @@ class User(Base):
     level: Mapped[int] = mapped_column(Integer())
     elc: Mapped[str] = mapped_column(String(2))
     
-    def __repr__(self) -> str:
-        return f"User(id={self.id}, user_id={self.user_id}, first_name={self.first_name}, \
-                 last_name={self.last_name}, locale={self.locale}, level={self.level}, elc={self.elc})" 

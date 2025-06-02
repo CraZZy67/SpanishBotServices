@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select, update
 from sqlalchemy.orm import Session
 
 import os
@@ -14,13 +14,19 @@ DB = os.getenv('POSTGRES_DB')
 engine = create_engine(f'{Settings.DB_SYSTEM}+{Settings.DB_DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}')
 Base.metadata.create_all(engine)
 
-def new_user_info(user_id: int, first_name: str, last_name: str | None, locale: str, level: int, elc: str):
+def add_user_info(user_id: int, first_name: str, last_name: str | None, locale: str, level: int, elc: str):
     with Session(engine) as session:
-        user = User(
-            user_id=user_id, first_name=first_name,
-            last_name=last_name, locale=locale,
-            level=level, elc=elc
-        )
+        if session.execute(select(User).where(User.user_id == user_id)).one_or_none():
+            stmt = update(User).where(User.user_id == user_id).values(locale=locale, elc=elc, level=level)
+            
+            session.execute(stmt)
+            session.commit()
+        else:
+            user = User(
+                user_id=user_id, first_name=first_name,
+                last_name=last_name, locale=locale,
+                level=level, elc=elc
+            )
 
-        session.add(user)
-        session.commit()
+            session.add(user)
+            session.commit()

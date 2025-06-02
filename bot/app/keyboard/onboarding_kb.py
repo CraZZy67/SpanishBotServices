@@ -3,7 +3,7 @@ from aiogram.types import InlineKeyboardMarkup
 import pycountry
 
 from settings import Locale
-from utils.callback import LocaleCallback, ElcCallback, LevelCallback, SubscribeCallback, MenuCallback
+from utils.callback import AlphaCallback, LevelCallback, GromeCallback
 
 
 def start_kb() -> InlineKeyboardMarkup:
@@ -11,8 +11,9 @@ def start_kb() -> InlineKeyboardMarkup:
     
     for alpha2 in Locale.locales:
         builder.button(text=pycountry.languages.get(alpha_2=alpha2).name, 
-                       callback_data=LocaleCallback(group='locale', alpha2_form=alpha2))
+                       callback_data=AlphaCallback(group='locale', alpha2_form=alpha2))
 
+    builder.adjust(2, repeat=True)
     return builder.as_markup()
 
 def elc_kb(buttons: list) -> InlineKeyboardMarkup:
@@ -20,8 +21,9 @@ def elc_kb(buttons: list) -> InlineKeyboardMarkup:
     
     for name in buttons:
         country = pycountry.countries.get(name=name)
-        builder.button(text=name, callback_data=ElcCallback(group='elc', alpha2_form=country.alpha_2))
+        builder.button(text=name, callback_data=AlphaCallback(group='elc', alpha2_form=country.alpha_2))
     
+    builder.adjust(2, repeat=True)
     return builder.as_markup()
 
 def level_kb(buttons: list) -> InlineKeyboardMarkup:
@@ -30,20 +32,23 @@ def level_kb(buttons: list) -> InlineKeyboardMarkup:
     for index, name in enumerate(buttons):
         builder.button(text=name, callback_data=LevelCallback(group='level', number=index))
     
+    builder.adjust(2, repeat=True)
     return builder.as_markup()
 
 def subscribe_kb(buttons: list) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     
     for name in buttons:
-        builder.button(text=name, callback_data=SubscribeCallback(group='subscribe', name=name))
+        builder.button(text=name, callback_data=GromeCallback(group='subscribe', name=name))
     
+    builder.adjust(2, repeat=True)
     return builder.as_markup()
 
 def menu_kb(buttons: list) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     
     for name in buttons:
-        builder.button(text=name, callback_data=MenuCallback(group='menu', name=name))
+        builder.button(text=name, callback_data=GromeCallback(group='menu', name=name))
     
+    builder.adjust(2, repeat=True)
     return builder.as_markup()

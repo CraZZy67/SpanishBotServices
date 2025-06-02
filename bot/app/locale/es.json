@@ -1,7 +1,7 @@
 {
 	"elc": {
 		"text": "Seleccione qué dialecto del español prefiere.",
-		"buttons": ["México", "España", "Argentina", "Colombia", "Chile"]
+		"buttons": ["Mexico", "Spain", "Argentina", "Colombia", "Chile"]
 	},
 	"level": {
 		"text": "Ahora seleccione su nivel de conocimiento del idioma español.",
