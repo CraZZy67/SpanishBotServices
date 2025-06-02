@@ -1,11 +1,15 @@
 services:
+
   bot:
     build: bot/
     container_name: bot
     ports:
       - '8070:8080'
     env_file:
-      - .env
+      - bot/.env.bot
+    environment:
+      - POSTGRES_HOST=db
+
   nginx-entrypoint:
     image: nginx
     container_name: nginx-entrypoint
@@ -14,3 +18,22 @@ services:
       - 8080:8080
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+
+  db:
+    image: postgres
+    restart: always
+    container_name: db
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    container_name: adminer
+    ports:
+      - 8060:8080
+
+volumes:
+  pgdata:

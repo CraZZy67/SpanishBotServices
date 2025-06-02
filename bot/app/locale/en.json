@@ -1,0 +1,18 @@
+{
+	"elc": {
+		"text": "Select which Spanish dialect you prefer.",
+		"buttons": ["Mexico", "Spain", "Argentina", "Colombia", "Chile"]
+	},
+	"level": {
+		"text": "Now select your self-assessed level of Spanish proficiency.",
+		"buttons": ["A1", "A2", "B1", "B2", "C1", "C2"]
+	},
+	"subscribe": {
+		"text": "You can use the bot's trial version or subscribe.",
+		"buttons": ["Try free version", "Subscribe"]
+	},
+	"menu": {
+		"text": "Here you can find all necessary information and configure the sections you need.",
+		"buttons": ["🌍 Country", "💳 Subscription", "⚙️ Settings", "❓ Help / Support"]
+	}
+}

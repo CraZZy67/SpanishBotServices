@@ -1,0 +1,23 @@
+{
+	"elc": {
+		"text": "Seleccione qué dialecto del español prefiere.",
+		"buttons": ["México", "España", "Argentina", "Colombia", "Chile"]
+	},
+	"level": {
+		"text": "Ahora seleccione su nivel de conocimiento del idioma español.",
+		"buttons": ["A1", "A2", "B1", "B2", "C1", "C2"]
+	},
+	"subscribe": {
+		"text": "Puede usar la versión de prueba del bot o suscribirse.",
+		"buttons": ["Usar versión de prueba", "Suscribirse"]
+	},
+	"menu": {
+		"text": "Aquí puede ver toda la información necesaria y configurar las secciones que necesite.",
+		"buttons": [
+			"🌍 País",
+			"💳 Suscripción",
+			"⚙️ Configuración",
+			"❓ Ayuda / Soporte"
+		]
+	}
+}

@@ -13,10 +13,12 @@ class Settings:
     
     FILE_ENCODING = 'utf-8'
     
-    START_BUTTONS = 'Русский', 'English', 'Espanol'
     START_TEXT = 'Hello, choose your language'
     
     LOG_PATH = PurePath('log')
+    
+    DB_SYSTEM = 'postgresql'
+    DB_DRIVER = 'psycopg2'
     
 class Locale:
     
@@ -27,7 +29,7 @@ class Locale:
         
         for file in list_files:
             if Settings.LOCALE_FILE_FORMAT in file:
-                locales.append(file)
+                locales.append(file.split('.')[0])
         
         cls.locales: List[str] = locales 
         

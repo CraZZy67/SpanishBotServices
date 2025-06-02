@@ -304,8 +304,6 @@ pip-selfcheck.json
 logs.log
 .vscode
 .venvpyro
-*.session
-.session.journal
-data
+.env.*
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,venv,dotenv
