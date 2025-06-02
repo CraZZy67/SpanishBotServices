@@ -19,5 +19,18 @@
 			"⚙️ Configuración",
 			"❓ Ayuda / Soporte"
 		]
+	},
+	"choice": {
+		"text": "Elige el plan de suscripción que más te convenga.",
+		"buttons": ["Un mes", "Tres meses", "Un año"]
+	},
+	"invoice": {
+		"title": "Suscríbete a {time}.",
+		"description": "Suscríbete a los servicios de bots de Telegram para aprender español en {time}.",
+		"prices": [25000, 50000, 100000]
+	},
+	"next": {
+		"text": "Si ha cambiado de opinión o ya ha pagado su suscripción, haga clic en 'Continuar'.",
+		"buttons": ["Continuar"]
 	}
 }

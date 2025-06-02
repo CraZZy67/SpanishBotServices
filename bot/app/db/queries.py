@@ -5,6 +5,7 @@ import os
 
 from settings import Settings
 from db.metadata import Base, User
+from settings import Locale
 
 
 USER, PASSWORD = os.getenv('POSTGRES_USER'), os.getenv('POSTGRES_PASSWORD')
@@ -20,7 +21,6 @@ def add_user_info(user_id: int, first_name: str, last_name: str | None, locale: 
             stmt = update(User).where(User.user_id == user_id).values(locale=locale, elc=elc, level=level)
             
             session.execute(stmt)
-            session.commit()
         else:
             user = User(
                 user_id=user_id, first_name=first_name,
@@ -29,4 +29,11 @@ def add_user_info(user_id: int, first_name: str, last_name: str | None, locale: 
             )
 
             session.add(user)
-            session.commit()
+            
+        session.commit()
+
+def get_user_locale(user: int):
+    with Session(engine) as session:
+        locale = session.execute(select(User.locale).where(User.user_id == user)).scalar_one()
+    
+    return Locale.get_locale_text(locale)

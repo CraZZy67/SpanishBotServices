@@ -1,16 +1,22 @@
 from aiogram import Router, F
 from aiogram.filters import CommandStart
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, LabeledPrice
 from aiogram.fsm.context import FSMContext
 
+import os
+
 from settings import Settings, Locale
-from keyboard.onboarding_kb import start_kb, elc_kb, level_kb, subscribe_kb, menu_kb
+from keyboard.onboarding_kb import start_kb, elc_kb, level_kb, grome_kb
 from utils.fsm import NewUser
-from db.queries import add_user_info
 from utils.callback import AlphaCallback, LevelCallback, GromeCallback
+from utils.middleware import LocaleMiddleware
+from db.queries import add_user_info
 
 
 onboarding_router = Router()
+payments_router = Router()
+
+payments_router.callback_query.middleware(LocaleMiddleware())
 
 @onboarding_router.message(CommandStart())
 async def start(message: Message, state: FSMContext):
@@ -44,24 +50,53 @@ async def catch_elc(callback: CallbackQuery, callback_data: AlphaCallback, state
 async def catch_level(callback: CallbackQuery, callback_data: LevelCallback, state: FSMContext):
     data = await state.get_data()
     text = data['text']
-    await callback.message.edit_text(text=text['subscribe']['text'], reply_markup=subscribe_kb(buttons=text['subscribe']['buttons']))
+    await callback.message.edit_text(text=text['subscribe']['text'], reply_markup=grome_kb(buttons=text['subscribe']['buttons'],
+                                                                                           group='subscribe'))
     
     await state.set_state(NewUser.subscription)
     await state.update_data(level=callback_data.number)
 
 @onboarding_router.callback_query(NewUser.subscription, GromeCallback.filter(F.group == 'subscribe'))
-async def catch_level(callback: CallbackQuery, callback_data: GromeCallback, state: FSMContext):
+async def catch_subscription(callback: CallbackQuery, callback_data: GromeCallback, state: FSMContext):
     data = await state.get_data()
     text = data['text']
     
-    if text['subscribe']['buttons'][0] == callback_data.name:
-        add_user_info(
-            user_id=data['user_id'], first_name=data['first_name'],
-            last_name=data['last_name'], locale=data['locale'],
-            elc=data['elc'], level=data['level']
+    add_user_info(
+        user_id=data['user_id'], first_name=data['first_name'],
+        last_name=data['last_name'], locale=data['locale'],
+        elc=data['elc'], level=data['level']
         )
-        
-        await callback.message.edit_text(text=text['menu']['text'], reply_markup=menu_kb(buttons=text['menu']['buttons']))
-        await state.clear()
+    
+    if text['subscribe']['buttons'][0] == callback_data.name:
+        await callback.message.edit_text(text=text['menu']['text'], reply_markup=grome_kb(buttons=text['menu']['buttons'],
+                                                                                          group='menu'))
     else:
-        await callback.answer('В разработке')
+        await callback.message.edit_text(text=text['choice']['text'], reply_markup=grome_kb(buttons=text['choice']['buttons'],
+                                                                                          group='choice'))
+        
+    await state.clear()
+
+@payments_router.callback_query(GromeCallback.filter(F.group == 'choice'))
+async def choice(callback: CallbackQuery, text: dict, callback_data: GromeCallback):
+    for index, name in enumerate(text['choice']['buttons']):
+        if name == callback_data.name:
+            number = index
+            
+    await callback.answer()
+    
+    await callback.bot.send_invoice(
+        chat_id=callback.message.chat.id,
+        title=text['invoice']['title'].format(time=callback_data.name.lower()),
+        description=text['invoice']['description'].format(time=callback_data.name.lower()),
+        payload='Nothing',
+        currency='RUB',
+        prices=[LabeledPrice(label=':)', amount=text['invoice']['prices'][number])],
+        provider_token=os.getenv('PROVIDER_TOKEN')
+    )
+    await callback.message.answer(text=text['next']['text'], 
+                                  reply_markup=grome_kb(buttons=text['next']['buttons'], group='next'))
+
+@payments_router.callback_query(GromeCallback.filter(F.group == 'next'))
+async def choice(callback: CallbackQuery, text: dict, callback_data: GromeCallback):
+    await callback.message.edit_text(text=text['menu']['text'], 
+                                     reply_markup=grome_kb(buttons=text['menu']['buttons'], group='menu'))

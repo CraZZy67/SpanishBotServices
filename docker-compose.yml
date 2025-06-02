@@ -21,12 +21,11 @@ services:
 
   db:
     image: postgres
-    restart: always
     container_name: db
     env_file:
       - .env
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgda:/var/lib/postgresql/data
 
   adminer:
     image: adminer
@@ -36,4 +35,4 @@ services:
       - 8060:8080
 
 volumes:
-  pgdata:
+  pgda:

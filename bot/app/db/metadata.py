@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String
+from sqlalchemy import Integer, String, BigInteger
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import Mapped
@@ -8,11 +8,11 @@ from typing import Optional
 
 class Base(DeclarativeBase): pass
 
-class User(MappedAsDataclass, Base):
+class User(Base):
     __tablename__ = "users"
     
-    id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(Integer(), unique=True)
+    uid: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(BigInteger(), unique=True)
     first_name: Mapped[str] = mapped_column(String(20))
     last_name: Mapped[Optional[str]]
     locale: Mapped[str] = mapped_column(String(2))

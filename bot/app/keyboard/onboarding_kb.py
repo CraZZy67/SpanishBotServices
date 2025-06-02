@@ -35,20 +35,11 @@ def level_kb(buttons: list) -> InlineKeyboardMarkup:
     builder.adjust(2, repeat=True)
     return builder.as_markup()
 
-def subscribe_kb(buttons: list) -> InlineKeyboardMarkup:
+def grome_kb(buttons: list, group: str) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     
     for name in buttons:
-        builder.button(text=name, callback_data=GromeCallback(group='subscribe', name=name))
-    
-    builder.adjust(2, repeat=True)
-    return builder.as_markup()
-
-def menu_kb(buttons: list) -> InlineKeyboardMarkup:
-    builder = InlineKeyboardBuilder()
-    
-    for name in buttons:
-        builder.button(text=name, callback_data=GromeCallback(group='menu', name=name))
+        builder.button(text=name, callback_data=GromeCallback(group=group, name=name))
     
     builder.adjust(2, repeat=True)
     return builder.as_markup()
