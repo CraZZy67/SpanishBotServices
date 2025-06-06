@@ -90,7 +90,7 @@ async def choice(callback: CallbackQuery, text: dict, callback_data: GromeCallba
         description=text['invoice']['description'].format(time=callback_data.name.lower()),
         payload='Nothing',
         currency='RUB',
-        prices=[LabeledPrice(label=':)', amount=text['invoice']['prices'][number])],
+        prices=[LabeledPrice(label='', amount=text['invoice']['prices'][number])],
         provider_token=os.getenv('PROVIDER_TOKEN')
     )
     await callback.message.answer(text=text['next']['text'], 

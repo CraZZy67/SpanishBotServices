@@ -9,10 +9,10 @@ from settings import Locale
 
 
 USER, PASSWORD = os.getenv('POSTGRES_USER'), os.getenv('POSTGRES_PASSWORD')
-HOST, PORT = os.getenv('POSTGRES_HOST'), os.getenv('POSTGRES_PORT')
+NAME, PORT = os.getenv('SERVICE_DB_NAME'), os.getenv('POSTGRES_PORT')
 DB = os.getenv('POSTGRES_DB')
 
-engine = create_engine(f'{Settings.DB_SYSTEM}+{Settings.DB_DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}')
+engine = create_engine(f'{Settings.DB_SYSTEM}+{Settings.DB_DRIVER}://{USER}:{PASSWORD}@{NAME}:{PORT}/{DB}')
 Base.metadata.create_all(engine)
 
 def add_user_info(user_id: int, first_name: str, last_name: str | None, locale: str, level: int, elc: str):
