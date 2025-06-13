@@ -1,15 +1,31 @@
 {
 	"elc": {
 		"text": "Select which Spanish dialect you prefer.",
-		"buttons": ["Mexico", "Spain", "Argentina", "Colombia", "Chile"]
+		"buttons": [
+			"Mexico",
+			"Spain",
+			"Argentina",
+			"Colombia",
+			"Chile"
+		]
 	},
 	"level": {
 		"text": "Now select your self-assessed level of Spanish proficiency.",
-		"buttons": ["A1", "A2", "B1", "B2", "C1", "C2"]
+		"buttons": [
+			"A1",
+			"A2",
+			"B1",
+			"B2",
+			"C1",
+			"C2"
+		]
 	},
 	"subscribe": {
 		"text": "You can use the bot's trial version or subscribe.",
-		"buttons": ["Try free version", "Subscribe"]
+		"buttons": [
+			"Try free version",
+			"Subscribe"
+		]
 	},
 	"menu": {
 		"text": "Here you can find all necessary information and configure the sections you need.",
@@ -22,15 +38,24 @@
 	},
 	"choice": {
 		"text": "Choose the subscription plan that suits you.",
-		"buttons": ["One month", "Three month", "One year"]
+		"buttons": [
+			"One month",
+			"Three month",
+			"One year"
+		]
 	},
 	"invoice": {
 		"title": "Subscribe to {time}.",
 		"description": "Subscribe to the telegram bot services for learning Spanish at {time}.",
-		"prices": [25000, 50000, 100000]
-	},
-	"next": {
-		"text": "If you have changed your mind or have already paid for your subscription, click 'Continue'.",
-		"buttons": ["Continue"]
+		"label": "Subscription",
+		"buttons": [
+			"Pay",
+			"Continue"
+		],
+		"prices": [
+			25000,
+			50000,
+			100000
+		]
 	}
 }

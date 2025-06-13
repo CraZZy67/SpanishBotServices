@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 import json
 import os
+import datetime
 from pathlib import PurePath
 from typing import List
 
@@ -19,6 +20,8 @@ class Settings:
     
     DB_SYSTEM = 'postgresql'
     DB_DRIVER = 'psycopg2'
+
+    TRIAL_PERIOD = datetime.timedelta(days=14.0)
     
 class Locale:
     

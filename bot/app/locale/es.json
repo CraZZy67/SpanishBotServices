@@ -1,15 +1,31 @@
 {
 	"elc": {
 		"text": "Seleccione qué dialecto del español prefiere.",
-		"buttons": ["Mexico", "Spain", "Argentina", "Colombia", "Chile"]
+		"buttons": [
+			"Mexico",
+			"Spain",
+			"Argentina",
+			"Colombia",
+			"Chile"
+		]
 	},
 	"level": {
 		"text": "Ahora seleccione su nivel de conocimiento del idioma español.",
-		"buttons": ["A1", "A2", "B1", "B2", "C1", "C2"]
+		"buttons": [
+			"A1",
+			"A2",
+			"B1",
+			"B2",
+			"C1",
+			"C2"
+		]
 	},
 	"subscribe": {
 		"text": "Puede usar la versión de prueba del bot o suscribirse.",
-		"buttons": ["Usar versión de prueba", "Suscribirse"]
+		"buttons": [
+			"Usar versión de prueba",
+			"Suscribirse"
+		]
 	},
 	"menu": {
 		"text": "Aquí puede ver toda la información necesaria y configurar las secciones que necesite.",
@@ -22,15 +38,24 @@
 	},
 	"choice": {
 		"text": "Elige el plan de suscripción que más te convenga.",
-		"buttons": ["Un mes", "Tres meses", "Un año"]
+		"buttons": [
+			"Un mes",
+			"Tres meses",
+			"Un año"
+		]
 	},
 	"invoice": {
 		"title": "Suscríbete a {time}.",
 		"description": "Suscríbete a los servicios de bots de Telegram para aprender español en {time}.",
-		"prices": [25000, 50000, 100000]
-	},
-	"next": {
-		"text": "Si ha cambiado de opinión o ya ha pagado su suscripción, haga clic en 'Continuar'.",
-		"buttons": ["Continuar"]
+		"label": "Suscripción",
+		"buttons": [
+			"Pagar",
+			"Continuar"
+		],
+		"prices": [
+			25000,
+			50000,
+			100000
+		]
 	}
 }
