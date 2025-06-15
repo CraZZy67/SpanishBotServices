@@ -94,11 +94,10 @@ async def choice(callback: CallbackQuery, text: dict, callback_data: GromeCallba
         chat_id=callback.message.chat.id,
         title=text['invoice']['title'].format(time=callback_data.name.lower()),
         description=text['invoice']['description'].format(time=callback_data.name.lower()),
-        payload='Nothing',
+        payload=str(Settings.PERIODS[number]),
         currency='RUB',
-        prices=[LabeledPrice(label=text['invoice']['label'], amount=text['invoice']['prices'][number])],
+        prices=[LabeledPrice(label=text['invoice']['label'], amount=Settings.PRICES[number])],
         provider_token=os.getenv('PROVIDER_TOKEN'),
-        start_parameter='2222',
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text=text['invoice']['buttons'][0], pay=True)],
             [InlineKeyboardButton(text=text['invoice']['buttons'][1], callback_data='cancel')]

@@ -4,8 +4,9 @@ function routeRequest(req) {
 
     if ('pre_checkout_query' in data) {
         req.internalRedirect('@payment');
-    }
-    else {
+    } else if ('message' in data && 'successful_payment' in data.message) {
+        req.internalRedirect('@payment');
+    } else {
         req.internalRedirect('@bot');
     }
 }

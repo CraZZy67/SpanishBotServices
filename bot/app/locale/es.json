@@ -51,11 +51,6 @@
 		"buttons": [
 			"Pagar",
 			"Continuar"
-		],
-		"prices": [
-			25000,
-			50000,
-			100000
 		]
 	}
 }

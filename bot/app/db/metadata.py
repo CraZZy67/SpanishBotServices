@@ -25,4 +25,4 @@ class Payment(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey('users.user_id', ondelete='CASCADE', onupdate='CASCADE'), nullable=False)
     status: Mapped[str] = mapped_column(String(), nullable=False)
     expiry: Mapped[str] = mapped_column(DateTime(), nullable=False)
-    payment_id: Mapped[Optional[int]]
+    payment_id: Mapped[Optional[str]]
