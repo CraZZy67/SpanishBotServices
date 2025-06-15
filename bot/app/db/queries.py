@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, select, insert
+from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 
 import os

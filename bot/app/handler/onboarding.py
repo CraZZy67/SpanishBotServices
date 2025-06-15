@@ -7,9 +7,10 @@ import os
 
 from settings import Settings, Locale
 from keyboard.onboarding_kb import start_kb, elc_kb, level_kb, grome_kb
-from utils.fsm import NewUser
-from utils.callback import AlphaCallback, LevelCallback, GromeCallback
-from utils.middleware import LocaleMiddleware
+from util.fsm import NewUser
+from util.callback import AlphaCallback, LevelCallback, GromeCallback
+from util.middleware import LocaleMiddleware
+from glex import bot
 from db.queries import add_user_info, check_user, get_user_locale
 
 
@@ -89,7 +90,7 @@ async def choice(callback: CallbackQuery, text: dict, callback_data: GromeCallba
             
     await callback.message.delete()
     
-    await callback.bot.send_invoice(
+    await bot.send_invoice(
         chat_id=callback.message.chat.id,
         title=text['invoice']['title'].format(time=callback_data.name.lower()),
         description=text['invoice']['description'].format(time=callback_data.name.lower()),
@@ -97,6 +98,7 @@ async def choice(callback: CallbackQuery, text: dict, callback_data: GromeCallba
         currency='RUB',
         prices=[LabeledPrice(label=text['invoice']['label'], amount=text['invoice']['prices'][number])],
         provider_token=os.getenv('PROVIDER_TOKEN'),
+        start_parameter='2222',
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text=text['invoice']['buttons'][0], pay=True)],
             [InlineKeyboardButton(text=text['invoice']['buttons'][1], callback_data='cancel')]

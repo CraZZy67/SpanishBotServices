@@ -16,7 +16,7 @@ class Settings:
     
     START_TEXT = 'Hello, choose your language'
     
-    LOG_PATH = PurePath('log')
+    LOG_PATH = PurePath('log', 'logs.log')
     
     DB_SYSTEM = 'postgresql'
     DB_DRIVER = 'psycopg2'

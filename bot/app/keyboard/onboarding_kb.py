@@ -3,7 +3,7 @@ from aiogram.types import InlineKeyboardMarkup
 import pycountry
 
 from settings import Locale
-from utils.callback import AlphaCallback, LevelCallback, GromeCallback
+from util.callback import AlphaCallback, LevelCallback, GromeCallback
 
 
 def start_kb() -> InlineKeyboardMarkup:

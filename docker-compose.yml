@@ -3,20 +3,20 @@ services:
     build: ./bot
     container_name: bot
     env_file:
-      - bot/.env.bot
+      - bot/.env
+      - .env
     depends_on:
       - db
 
   nginx-entrypoint:
-    image: nginx
+    build: ./nginx
     container_name: nginx-entrypoint
     restart: unless-stopped
     ports:
       - 127.0.0.1:8080:80
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - bot
+      - payment
 
   db:
     image: postgres
@@ -34,6 +34,16 @@ services:
       - 127.0.0.1:8070:8080
     depends_on:
       - db
+
+  payment:
+    build: ./payment
+    container_name: payment
+    env_file:
+      - payment/.env
+      - .env
+    depends_on:
+      - db
+      - bot
 
 volumes:
   pgdata:

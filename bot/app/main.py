@@ -7,13 +7,14 @@ import os
 
 from glex import bot
 from settings import Locale
+from logger import main_logger
 from handler.onboarding import onboarding_router, payments_router
 
 
 load_dotenv()
 
 async def on_startup(bot: Bot) -> None:
-    await bot.set_webhook(f"{os.getenv('BASE_WEBHOOK_URL')}{os.getenv('WEBHOOK_PATH')}")
+    await bot.set_webhook(f"{os.getenv('BASE_WEBHOOK_URL')}{os.getenv('WEBHOOK_PATH')}", allowed_updates=[])
 
 def main() -> None:
     dp = Dispatcher()
@@ -33,7 +34,8 @@ def main() -> None:
     
     Locale.get_locales()
     
-    web.run_app(app, host=os.getenv('WEB_SERVER_HOST'), port=int(os.getenv('WEB_SERVER_PORT')))
+    web.run_app(app, host=os.getenv('WEB_SERVER_HOST'), port=int(os.getenv('WEB_SERVER_PORT')), access_log=main_logger)
 
 if __name__ == "__main__":
+    main_logger.debug('Bot сервис запущен!')
     main()
