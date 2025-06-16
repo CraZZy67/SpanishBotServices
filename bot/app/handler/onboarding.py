@@ -100,11 +100,11 @@ async def choice(callback: CallbackQuery, text: dict, callback_data: GromeCallba
         provider_token=os.getenv('PROVIDER_TOKEN'),
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text=text['invoice']['buttons'][0], pay=True)],
-            [InlineKeyboardButton(text=text['invoice']['buttons'][1], callback_data='cancel')]
+            [InlineKeyboardButton(text=text['invoice']['buttons'][1], callback_data='continue')]
         ])
     )
 
-@payments_router.callback_query(F.data == 'cancel')
+@payments_router.callback_query(F.data == 'continue')
 async def choice(callback: CallbackQuery, text: dict):
     await callback.message.delete()
     await callback.message.answer(text=text['menu']['text'], 

@@ -44,6 +44,12 @@ def get_user_locale(user: int):
 
 def get_user_payment_status(user: int):
     with Session(engine) as session:
-        status = session.execute(select(Payment.status).join(User.user_id).where(User.user_id == user)).scalar_one()
+        status = session.execute(select(Payment.status).where(Payment.user_id == user)).scalar_one()
     
     return status
+
+def get_user_expiry(user: int):
+    with Session(engine) as session:
+        expiry = session.execute(select(Payment.expiry).where(Payment.user_id == user)).scalar_one()
+    
+    return expiry

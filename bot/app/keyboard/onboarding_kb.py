@@ -43,3 +43,10 @@ def grome_kb(buttons: list, group: str) -> InlineKeyboardMarkup:
     
     builder.adjust(2, repeat=True)
     return builder.as_markup()
+
+def back_button(locale_name: str, target: str) -> InlineKeyboardMarkup:
+    builder = InlineKeyboardBuilder()
+    
+    builder.button(text=locale_name, callback_data=GromeCallback(group='back', name=target))
+    
+    return builder.as_markup()

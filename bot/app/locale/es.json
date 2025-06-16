@@ -52,5 +52,20 @@
 			"Pagar",
 			"Continuar"
 		]
+	},
+	"menu_subscribe": {
+		"text_if_paid": "Suscripción pagada hasta {date}",
+		"text_if_trial": "Período de prueba hasta {date}",
+		"text_if_npaid": "Suscripción vencida, servicios suspendidos",
+		"buttons": [
+			"Actualizar",
+			"Pagar"
+		]
+	},
+	"back": {
+		"text": "Atrás"
+	},
+	"support": {
+		"text": "Si tiene un problema o pregunta, contacte: {user}"
 	}
 }

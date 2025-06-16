@@ -52,5 +52,20 @@
 			"Pay",
 			"Continue"
 		]
+	},
+	"menu_subscribe": {
+		"text_if_paid": "Subscription paid until {date}",
+		"text_if_trial": "Trial period until {date}",
+		"text_if_npaid": "Subscription expired, services suspended",
+		"buttons": [
+			"Update",
+			"Pay"
+		]
+	},
+	"back": {
+		"text": "Back"
+	},
+	"support": {
+		"text": "If you have a problem or question, contact: {user}"
 	}
 }

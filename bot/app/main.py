@@ -9,6 +9,7 @@ from glex import bot
 from settings import Locale
 from logger import main_logger
 from handler.onboarding import onboarding_router, payments_router
+from handler.menu import menu_router
 
 
 load_dotenv()
@@ -19,7 +20,7 @@ async def on_startup(bot: Bot) -> None:
 def main() -> None:
     dp = Dispatcher()
     dp.startup.register(on_startup)
-    dp.include_routers(onboarding_router, payments_router)
+    dp.include_routers(onboarding_router, payments_router, menu_router)
     
     app = web.Application()
 

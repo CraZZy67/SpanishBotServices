@@ -15,6 +15,8 @@ class Settings:
     FILE_ENCODING = 'utf-8'
     
     START_TEXT = 'Hello, choose your language'
+
+    SUPPORT_USER = '@CraZZy8867'
     
     LOG_PATH = PurePath('log', 'logs.log')
     
