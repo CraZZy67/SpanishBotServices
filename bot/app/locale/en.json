@@ -67,5 +67,11 @@
 	},
 	"support": {
 		"text": "If you have a problem or question, contact: {user}"
+	},
+	"dont_upgrade": {
+		"text": "This subscription has already been purchased or it is at a lower level"
+	},
+	"successful_change": {
+		"text": "Change successfully made, restart the bot"
 	}
 }

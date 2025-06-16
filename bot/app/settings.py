@@ -25,7 +25,7 @@ class Settings:
 
     TRIAL_PERIOD = datetime.timedelta(days=14.0)
 
-    PRICES = [25000, 50000, 100000]
+    PRICES = [25000, 75000, 300000]
     PERIODS = [30, 90, 365]
     
 class Locale:

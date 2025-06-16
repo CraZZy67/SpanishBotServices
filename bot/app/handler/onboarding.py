@@ -84,9 +84,7 @@ async def catch_subscription(callback: CallbackQuery, callback_data: GromeCallba
 
 @payments_router.callback_query(GromeCallback.filter(F.group == 'choice'))
 async def choice(callback: CallbackQuery, text: dict, callback_data: GromeCallback):
-    for index, name in enumerate(text['choice']['buttons']):
-        if name == callback_data.name:
-            number = index
+    number = text['choice']['buttons'].index(callback_data.name)
             
     await callback.message.delete()
     

@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, update
 from sqlalchemy.orm import Session
 
 import os
@@ -53,3 +53,8 @@ def get_user_expiry(user: int):
         expiry = session.execute(select(Payment.expiry).where(Payment.user_id == user)).scalar_one()
     
     return expiry
+
+def update_value_user(value, user: int, field: str):
+    with Session(engine) as session:
+        session.execute(update(User).where(User.user_id == user).values(**{field: value}))
+        session.commit()
