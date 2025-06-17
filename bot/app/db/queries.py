@@ -42,6 +42,12 @@ def get_user_locale(user: int):
     
     return Locale.get_locale_text(locale)
 
+def get_user_elc(user: int):
+    with Session(engine) as session:
+        elc = session.execute(select(User.elc).where(User.user_id == user)).scalar_one()
+    
+    return elc
+
 def get_user_payment_status(user: int):
     with Session(engine) as session:
         status = session.execute(select(Payment.status).where(Payment.user_id == user)).scalar_one()

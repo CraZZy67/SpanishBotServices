@@ -9,7 +9,7 @@ from util.middleware import LocaleMiddleware
 from util.callback import GromeCallback, AlphaCallback
 from settings import  Settings
 from logger import main_logger
-from db.queries import get_user_payment_status, get_user_expiry, update_value_user
+from db.queries import get_user_payment_status, get_user_expiry, update_value_user, get_user_elc
 from keyboard.onboarding_kb import elc_kb, grome_kb, back_button, start_kb
 
 
@@ -20,11 +20,23 @@ menu_router.callback_query.middleware(LocaleMiddleware())
 async def menu_handler(callback: CallbackQuery, text: dict, callback_data: GromeCallback):
     status = get_user_payment_status(callback.from_user.id)
     date = get_user_expiry(callback.from_user.id).date()
+    elc = get_user_elc(callback.from_user.id)
     back = back_button(locale_name=text['back']['text'], target='menu')
 
     if callback_data.name == text['menu']['buttons'][0]:
         elc_markup = elc_kb(buttons=text['elc']['buttons'])
         elc_markup.inline_keyboard.append(back.inline_keyboard[0])
+
+        for row in elc_markup.inline_keyboard:
+            for button in row:
+                if ',' in elc:
+                    for i in elc.split(','):
+                        if i == button.callback_data.split(':')[2]:
+                            button.text += ' ⏺️'
+                else:
+                    if elc == button.callback_data.split(':')[2]:
+                        button.text += ' ⏺️'
+                    
 
         await callback.message.edit_text(text=text['elc']['text'], reply_markup=elc_markup)
 
@@ -118,8 +130,32 @@ async def menu_subscribe_handler(callback: CallbackQuery, text: dict, callback_d
 
 @menu_router.callback_query(AlphaCallback.filter(F.group.in_(['locale', 'elc'])))
 async def menu_subscribe_handler(callback: CallbackQuery, text: dict, callback_data: AlphaCallback):
+    elc_markup = callback.message.reply_markup
+
+    elc = get_user_elc(callback.from_user.id)
+
+    for row in elc_markup.inline_keyboard:
+        for button in row:
+            if callback_data.alpha2_form == button.callback_data.split(':')[2]:
+                current_button = button
+
+    if not callback_data.alpha2_form in elc:
+        elc += ',' + callback_data.alpha2_form
+        current_button.text += ' ⏺️'
+
+        update_value_user(value=elc, user=callback.from_user.id, field=callback_data.group)
+        await callback.message.edit_text(text=text['elc']['text'], reply_markup=elc_markup)
+    else:
+        if ',' in elc:
+            elc = elc.replace(',' + callback_data.alpha2_form, '')
+            current_button.text = current_button.text.replace(' ⏺️', '')
+
+            update_value_user(value=elc, user=callback.from_user.id, field=callback_data.group)
+            await callback.message.edit_text(text=text['elc']['text'], reply_markup=elc_markup)
+
+@menu_router.callback_query(AlphaCallback.filter(F.group == 'locale'))
+async def menu_subscribe_handler(callback: CallbackQuery, text: dict, callback_data: AlphaCallback):
     update_value_user(value=callback_data.alpha2_form, user=callback.from_user.id, field=callback_data.group)
     await callback.answer(text=text['successful_change']['text'])
     await callback.message.edit_text(text=text['menu']['text'], 
                                         reply_markup=grome_kb(buttons=text['menu']['buttons'], group='menu'))
-    
