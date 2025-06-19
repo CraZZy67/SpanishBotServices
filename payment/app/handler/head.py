@@ -19,4 +19,4 @@ async def pre_checkout(pre_checkout: PreCheckoutQuery):
 @head_router.message(F.successful_payment)
 async def handl_payment(message: Message):
     update_subscribe(message.successful_payment, message.from_user.id)
-    main_logger.debug('Data updated')
+    main_logger.debug('Данные обновлены')
