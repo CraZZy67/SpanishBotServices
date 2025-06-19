@@ -1,4 +1,5 @@
 from relevanceai import RelevanceAI
+from relevanceai.types.task import Task
 
 import os
 import pycountry
@@ -23,19 +24,19 @@ class Agent:
     
     @staticmethod
     def alpha_to_name(alpha_format: str, pycountry_list: list):
-        return pycountry_list.get(alpha_2=alpha_format)
+        return pycountry_list.get(alpha_2=alpha_format).name
 
     @classmethod
-    def generate_post(cls, format: str, level: int, counries: str, language: str) -> str:
+    def generate_post(cls, format: str, level: int, countries: str, language: str) -> Task:
         language = cls.alpha_to_name(language, pycountry.languages)
-        counries = [cls.alpha_to_name(x, pycountry.countries) for x in counries.split(',')]
+        countries = [cls.alpha_to_name(x, pycountry.countries) for x in countries.split(',')]
 
-        level = 'A1-A2' if level else 'B1-C2'
+        level = 'B1-C2' if level else 'A1-A2'
 
         message = cls.get_prompt().format(
             format=format, 
             level=level, 
-            countries=', '.join(counries),
+            countries=', '.join(countries),
             language=language
             )
         

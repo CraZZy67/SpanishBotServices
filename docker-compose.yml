@@ -45,5 +45,13 @@ services:
       - db
       - bot
 
+  agent:
+    build: ./agent
+    container_name: agent
+    ports:
+      - 127.0.0.1:8060:80
+    env_file:
+      - agent/.env
+
 volumes:
   pgdata:
