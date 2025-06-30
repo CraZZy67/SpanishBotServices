@@ -5,7 +5,7 @@ from db.queries import check_status, update_subscribe
 from logger import  main_logger
 
 
-head_router = Router()
+checkout_router = Router()
 
 @head_router.pre_checkout_query()
 async def pre_checkout(pre_checkout: PreCheckoutQuery):

@@ -64,3 +64,15 @@ def update_value_user(value, user: int, field: str):
     with Session(engine) as session:
         session.execute(update(User).where(User.user_id == user).values(**{field: value}))
         session.commit()
+
+def check_status(user: int):
+    with Session(engine) as session:
+        return True if session.execute(select(Payment.status).where(Payment.user_id == user)).scalar_one() == 'Paid' else False
+
+def update_subscribe(payment: SuccessfulPayment, user: int):
+    expiry = datetime.datetime.now() + datetime.timedelta(days=float(payment.invoice_payload))
+    
+    with Session(engine) as session:
+        session.execute(update(Payment).where(Payment.user_id == user).values(payment_id=payment.provider_payment_charge_id,
+                                                                              expiry=expiry, status='Paid'))
+        session.commit()

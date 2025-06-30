@@ -35,21 +35,9 @@ services:
     depends_on:
       - db
 
-  payment:
-    build: ./payment
-    container_name: payment
-    env_file:
-      - payment/.env
-      - .env
-    depends_on:
-      - db
-      - bot
-
   agent:
     build: ./agent
     container_name: agent
-    ports:
-      - 127.0.0.1:8060:80
     env_file:
       - agent/.env
 

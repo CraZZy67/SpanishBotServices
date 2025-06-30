@@ -10,9 +10,8 @@ from settings import Locale
 from logger import main_logger
 from handler.onboarding import onboarding_router, payments_router
 from handler.menu import menu_router
+from handler.payment import checkout_router
 
-
-load_dotenv()
 
 async def on_startup(bot: Bot) -> None:
     await bot.set_webhook(f"{os.getenv('BASE_WEBHOOK_URL')}{os.getenv('WEBHOOK_PATH')}", allowed_updates=[])
@@ -20,7 +19,7 @@ async def on_startup(bot: Bot) -> None:
 def main() -> None:
     dp = Dispatcher()
     dp.startup.register(on_startup)
-    dp.include_routers(onboarding_router, payments_router, menu_router)
+    dp.include_routers(onboarding_router, payments_router, menu_router, checkout_router)
     
     app = web.Application()
 

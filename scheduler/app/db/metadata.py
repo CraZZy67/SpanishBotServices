@@ -16,7 +16,7 @@ class User(Base):
     last_name: Mapped[Optional[str]]
     locale: Mapped[str] = mapped_column(String(2))
     level: Mapped[int] = mapped_column(Integer())
-    elc: Mapped[str] = mapped_column(String(2))
+    elc: Mapped[str] = mapped_column(String())
 
 class Payment(Base):
     __tablename__ = 'payments'
