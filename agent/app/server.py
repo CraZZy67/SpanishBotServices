@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from agent import Agent
+from agent_ import Agent
 
 
 class PromptParam(BaseModel):

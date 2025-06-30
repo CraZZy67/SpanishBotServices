@@ -41,5 +41,11 @@ services:
     env_file:
       - agent/.env
 
+  scheduler:
+    build: ./scheduler
+    container_name: scheduler
+    env_file:
+      - .env
+
 volumes:
   pgdata:
