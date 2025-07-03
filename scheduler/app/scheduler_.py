@@ -1,13 +1,17 @@
 import requests
 from aiogram import Bot
+from aiogram.types import FSInputFile
 
 import asyncio
 import os
 import pycountry
-from datetime import datetime, timedelta
+import io
+from zoneinfo import ZoneInfo
+from datetime import datetime
 
 from db.queries import get_user, update_status, get_users
 from settings import Settings
+from logger import main_logger
 
 
 class Scheduler:
@@ -18,11 +22,11 @@ class Scheduler:
     def check_user(user: int) -> bool:
         user_ = get_user(user=user)
 
-        if user_.status != 'expiry':
-            if datetime.fromisoformat(user_.expiry) > datetime.now():
+        if user_[0].status != 'expiry':
+            if user_[0].expiry > datetime.now():
                 return True
             else:
-                update_status(user=user, status='expiry')
+                update_status(user=user_[0].user_id, status='expiry')
                 return False
         else:
             return False
@@ -38,29 +42,32 @@ class Scheduler:
                 for translation in Settings.TRANSLEITS:
                     data = {
                         'format': format,
+                        'level': level,
                         'countries': dialect,
                         'language': translation,
-                        'level': level
                     }
 
-                    response = requests.post(Settings.URL, data=data).json()
+                    
+                    response = requests.post(Settings.URL, json=data).json()
+                    main_logger.debug(f'Содержимое: {response}')
 
                     combinations[dialect][level].update({translation: response['answer']})
         
         return combinations
     
     @staticmethod
-    def decode_info(user: tuple):
-        level = 'A1-A2' if not user[5] else 'B1-C2'
+    def decode_info(user):
+        main_logger.debug(f'User decode: {user.user_id}')
+
+        level = 'A1-A2' if not user.level else 'B1-C2'
 
         tuple_ = (
-            user[0],
-            user[1],
-            user[2],
-            user[3],
-            pycountry.languages.get(alpha_2=user[4]),
+            user.user_id,
+            user.first_name,
+            user.last_name,
+            pycountry.languages.get(alpha_2=user.locale).name,
             level,
-            pycountry.countries.get(alpha_2=user[6]),
+            pycountry.countries.get(alpha_2=user.elc.split(',')[0]).name,
         )
         return tuple_
     
@@ -68,24 +75,43 @@ class Scheduler:
     async def start(cls):
         while True:
             for topic in Settings.TOPICS:
-                tomorrow = datetime.now() + timedelta(days=1)
-                tomorrow.time = Settings.CONTENT_TIME
+                tomorrow = datetime.now(ZoneInfo("Europe/Moscow"))
 
-                diff = tomorrow - datetime.now()
+                tomorrow = tomorrow.replace(hour=Settings.CONTENT_TIME.hour, minute=Settings.CONTENT_TIME.minute)
 
-                await asyncio.sleep(float(diff.hour * 60 * 60))
+                diff = tomorrow - datetime.now(ZoneInfo("Europe/Moscow"))
+                main_logger.debug(f'Разница 1: {diff.total_seconds()}')
+
+                await asyncio.sleep(diff.total_seconds())
                 combinations = cls.get_combinations(format=topic)
                 
-                tomorrow.time = Settings.POST_TIME
-                diff = tomorrow - datetime.now()
+                tomorrow = tomorrow.replace(hour=Settings.POST_TIME.hour, minute=Settings.POST_TIME.minute)
 
-                await asyncio.sleep(float(diff.hour * 60 * 60))
+                diff = tomorrow - datetime.now(ZoneInfo("Europe/Moscow"))
+                main_logger.debug(f'Разница 2: {diff.total_seconds()}')
+
+                await asyncio.sleep(diff.total_seconds())
                 for user in get_users():
-                    user = cls.decode_info(user=user.tuple())
-                    if cls.check_user(user.tuple()[1]):
-                        text = combinations[user[6]][user[5]][user[4]]
+                    user = cls.decode_info(user=user[0])
+                    if cls.check_user(user[0]):
+                        text = combinations[user[5]][user[4]][user[3]]
 
-                        await cls.bot.send_message(chat_id=user.tuple()[1], text=text, parse_mode='Markdown')
+                        await cls.bot.send_message(chat_id=user[0], text=text, parse_mode='Markdown')
+                    
+                tomorrow = tomorrow.replace(hour=Settings.VIDEO_TIME.hour, minute=Settings.VIDEO_TIME.minute)
 
+                diff = tomorrow - datetime.now(ZoneInfo("Europe/Moscow"))
+                main_logger.debug(f'Разница 3: {diff.total_seconds()}')
 
+                await asyncio.sleep(diff.total_seconds())
+
+                response = requests.get(Settings.VIDEO_URL)
+                for user in get_users():
+                    user = cls.decode_info(user=user[0])
+                    if cls.check_user(user[0]):
+                        with open('video.mp4', 'wb') as file:
+                            file.write(response.content)
+
+                        await cls.bot.send_video(chat_id=user[0], video=FSInputFile(path='video.mp4', filename='video.mp4'))
+                        os.remove('video.mp4')
 

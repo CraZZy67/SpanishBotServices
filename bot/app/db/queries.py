@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, select, update
 from sqlalchemy.orm import Session
+from aiogram.types import SuccessfulPayment
 
 import os
 import datetime

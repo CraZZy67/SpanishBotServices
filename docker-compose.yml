@@ -16,7 +16,6 @@ services:
       - 127.0.0.1:8080:80
     depends_on:
       - bot
-      - payment
 
   db:
     image: postgres
@@ -41,9 +40,30 @@ services:
     env_file:
       - agent/.env
 
+  parser:
+    build: ./parser
+    container_name: parser
+    ports:
+      - 8060:80
+    env_file:
+      - .env
+
   scheduler:
     build: ./scheduler
     container_name: scheduler
+    env_file:
+      - .env
+    depends_on:
+      - agent
+
+  selenium_hub:
+    image: selenium/standalone-chromium:latest
+    container_name: selenium_hub
+    ports:
+      - 4444:4444
+      - 5900:5900
+      - 7900:7900
+    shm_size: 2g
     env_file:
       - .env
 

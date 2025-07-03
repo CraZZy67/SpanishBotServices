@@ -1,4 +1,4 @@
-from datetime import datetime, time
+from datetime import time
 
 from dataclasses import dataclass
 
@@ -8,12 +8,14 @@ class Settings:
     DB_SYSTEM = 'postgresql'
     DB_DRIVER = 'psycopg2'
 
-    CONTENT_TIME = time(hour=1, minute=0)
-    POST_TIME = time(hour=10, minute=0)
+    CONTENT_TIME = time(hour=17, minute=10)
+    POST_TIME = time(hour=17, minute=12)
+    VIDEO_TIME = time(hour=17, minute=14)
 
     TOPICS = ['Grammar', 'Vocabulary', 'Short story']
-    DIALECTS = ['mexico', 'spain']
+    DIALECTS = ['Mexico', 'Spain']
     LEVELS = ['A1-A2', 'B1-C2']
     TRANSLEITS = ['Russian', 'Spanish', 'English']
 
-    URL = 'http://agent/generate'
+    URL = 'http://agent:80/generate'
+    VIDEO_URL = 'http://parser:80/get_video'

@@ -23,10 +23,10 @@ class Settings:
     DB_SYSTEM = 'postgresql'
     DB_DRIVER = 'psycopg2'
 
-    TRIAL_PERIOD = datetime.timedelta(days=14.0)
+    TRIAL_PERIOD = datetime.timedelta(days=3.0)
 
-    PRICES = [25000, 75000, 300000]
-    PERIODS = [30, 90, 365]
+    PRICES = [20000, 30000, 60000]
+    PERIODS = [30, 30, 30]
     
 class Locale:
     

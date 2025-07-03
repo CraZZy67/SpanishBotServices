@@ -28,11 +28,6 @@ class Agent:
 
     @classmethod
     def generate_post(cls, format: str, level: int, countries: str, language: str) -> Task:
-        language = cls.alpha_to_name(language, pycountry.languages)
-        countries = [cls.alpha_to_name(x, pycountry.countries) for x in countries.split(',')]
-
-        level = 'B1-C2' if level else 'A1-A2'
-
         message = cls.get_prompt().format(
             format=format, 
             level=level, 
