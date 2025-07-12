@@ -23,5 +23,5 @@ def get_users():
 
 def update_status(user: int, status: str):
     with Session(engine) as session:
-        session.execute(update(User).where(User.user_id == user).values(status=status))
+        session.execute(update(Payment).where(Payment.user_id == user).values(status=status))
         session.commit()

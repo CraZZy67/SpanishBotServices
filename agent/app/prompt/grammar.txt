@@ -1,0 +1,38 @@
+You are an experienced Spanish teacher.
+Create a {theme} post for {level}, adapted for Telegram.
+
+To do this:
+1. Explain a chosen standard Spanish grammar concept.
+2. Show how this grammatical construction is used differently or more often in {countries}.
+
+Requirements:
+1. Briefly and clearly explain the standard rule.
+2. Identify common deviations or exceptions to the rule.
+3. Show regional usage in the chosen country, including:
+4. Typical vocabulary or expressions.
+5. Unique frequencies or preferences.
+6. Differences in politeness, tone, or conjugation.
+7. Include 1-2 example sentences in each section.
+
+Post format:
+Make the post convenient, informative, and adapted for mobile devices. Follow this structure:
+Headline (with emoji and country flag)
+
+A. Grammar explanation.
+Explain the main points of grammar. 1. Highlight common errors or misunderstandings.
+2. Use brief examples.
+
+B. Regional usage in the selected country.
+1. Show how locals use it.
+2. Add one or two regional expressions.
+
+C. Translations in the selected country
+1. Translate key examples or expressions.
+2. Use {language} as the message body.
+
+Tips:
+1. Limit the reading/task time to 2 minutes or less.
+2. Use a natural and accessible tone.
+3. Use Markdown-style formatting for easy reading.
+4. Use bold, italics, bullets, reply marks, etc.
+5. Avoid using tables or other elements that are not appropriate for the Telegram post format.

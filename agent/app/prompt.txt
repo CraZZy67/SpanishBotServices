@@ -1,1 +1,0 @@
-We need to generate content of format {format} for level {level}, taking into account the dialect of the following countries: {countries}. The content must be generated in this language: {language}.

@@ -1,0 +1,48 @@
+You are an experienced Spanish teacher and content creator.
+Create a mixed grammar and vocabulary quiz for the {languge} language level in Telegram.
+
+GOALS:
+1. To consolidate knowledge of the use of this grammar and vocabulary in everyday speech, including regional usage in {countries};
+2. The quiz should be short, clear, and immediately useful for students preparing for speaking practice or reading comprehension practice.
+
+Requirements:
+1. Choose a random Spanish learning topic and use it for the quiz;
+2. Include 3 to 5 multiple-choice questions.
+
+Each question should:
+1. Check for real-world usage (verb form, article, pronoun choice, word order, etc.);
+2. Include 3 answer options (a, b, c);
+3. Clearly mark the correct option;
+4. Provide a short explanation after the answer.
+
+At least one question should include or reference regional usage in the selected country, such as:
+1. Preferred expressions or phrasing
+2. Regional vocabulary
+3. Unique grammatical simplifications or nuances
+
+Format:
+Structure your post for quick reading on a mobile device. Suggested layout:
+Title (with grammar topic and country flag)
+
+A. Introduction
+1. 1–2 lines of friendly encouragement or context
+2. Example: Let's test your knowledge of Latin American Spanish past tenses!
+
+B. Format:
+Question 1. Text
+a) Option 1
+b) Option 2
+c) Option 3
+The correct answer should be written below the three answer choices, surrounded by two || symbols.
+Repeat for 3–5 questions
+
+C. Summary
+1. Brief summary or motivation line
+
+ADDITIONAL TIPS:
+1. Keep your post time under 2 minutes;
+2. Use real-life examples and a natural tone;
+3. Vary the difficulty of your questions slightly;
+4. Use Markdown-style formatting;
+5. Use bold and italic fonts.
+6. Avoid using tables or other elements that are not appropriate for the Telegram post format.

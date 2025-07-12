@@ -2,20 +2,13 @@ services:
   bot:
     build: ./bot
     container_name: bot
+    ports:
+      - 8050:80
     env_file:
       - bot/.env
       - .env
     depends_on:
       - db
-
-  nginx-entrypoint:
-    build: ./nginx
-    container_name: nginx-entrypoint
-    restart: unless-stopped
-    ports:
-      - 127.0.0.1:8080:80
-    depends_on:
-      - bot
 
   db:
     image: postgres
@@ -37,12 +30,16 @@ services:
   agent:
     build: ./agent
     container_name: agent
+    ports:
+      - 8040:80
+    restart: unless-stopped
     env_file:
       - agent/.env
 
   parser:
     build: ./parser
     container_name: parser
+    restart: unless-stopped
     ports:
       - 8060:80
     env_file:
@@ -51,6 +48,7 @@ services:
   scheduler:
     build: ./scheduler
     container_name: scheduler
+    restart: unless-stopped
     env_file:
       - .env
     depends_on:

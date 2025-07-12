@@ -1,7 +1,6 @@
 from aiohttp import web
 from aiogram import Bot, Dispatcher
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
-from dotenv import load_dotenv
 
 import os
 

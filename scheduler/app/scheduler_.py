@@ -7,7 +7,7 @@ import os
 import pycountry
 import io
 from zoneinfo import ZoneInfo
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from db.queries import get_user, update_status, get_users
 from settings import Settings
@@ -47,7 +47,6 @@ class Scheduler:
                         'language': translation,
                     }
 
-                    
                     response = requests.post(Settings.URL, json=data).json()
                     main_logger.debug(f'Содержимое: {response}')
 
@@ -80,6 +79,12 @@ class Scheduler:
                 tomorrow = tomorrow.replace(hour=Settings.CONTENT_TIME.hour, minute=Settings.CONTENT_TIME.minute)
 
                 diff = tomorrow - datetime.now(ZoneInfo("Europe/Moscow"))
+
+                if diff.total_seconds() < 0:
+                    tomorrow = datetime.now(ZoneInfo("Europe/Moscow")) + timedelta(days=1)
+                    tomorrow = tomorrow.replace(hour=Settings.CONTENT_TIME.hour, minute=Settings.CONTENT_TIME.minute)
+                    diff = tomorrow - datetime.now(ZoneInfo("Europe/Moscow"))
+
                 main_logger.debug(f'Разница 1: {diff.total_seconds()}')
 
                 await asyncio.sleep(diff.total_seconds())
@@ -96,7 +101,7 @@ class Scheduler:
                     if cls.check_user(user[0]):
                         text = combinations[user[5]][user[4]][user[3]]
 
-                        await cls.bot.send_message(chat_id=user[0], text=text, parse_mode='Markdown')
+                        await cls.bot.send_message(chat_id=user[0], text=combinations.replace('\n---', '').replace('#', ''), parse_mode='Markdown')
                     
                 tomorrow = tomorrow.replace(hour=Settings.VIDEO_TIME.hour, minute=Settings.VIDEO_TIME.minute)
 

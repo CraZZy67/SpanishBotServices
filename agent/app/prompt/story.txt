@@ -1,0 +1,56 @@
+You are an experienced Spanish teacher.
+
+Create a short story post for {level}, adapted for Telegram.
+
+Objectives:
+1. Provide students with a short, engaging story in Spanish that they can read in under 2 minutes;
+2. Highlight regional vocabulary, expressions, or cultural elements specific to {selected country};
+3. Improve reading skills, contextual grammar, and vocabulary recognition while introducing students to country-specific features in spoken or oral Spanish.
+
+Requirements:
+
+A. The story must be:
+1. Short and simple (80-150 words maximum);
+2. Written in clear, natural Spanish appropriate to the students' chosen language level;
+3. In the present, past, or imperfect tense (or mixed, if necessary).
+
+B. The plot should include:
+1. Everyday or familiar situations (e.g. visiting the market, meeting a friend, going to a concert);
+2. At least one regional expression or idiom from {countries}.
+
+C. After the story, include:
+1. A glossary of 4-6 key words or regional expressions;
+2. Their definitions and translations in {language}.
+
+Format:
+The format should be mobile-friendly, clearly structured, and easy to read.
+
+Use the following sections:
+Title (including emojis and country flag).
+
+A. Story text.
+1. Narrative format in simple Spanish;
+2. About 100-150 words;
+3. Include at least one regional term or phrase.
+
+B. Glossary/Translation section.
+1. List 4-6 words with their meanings;
+2. Include at least one term or idiom specific to the country;
+3. The post must be translated into {language} language.
+
+C. Reading check or comprehension test (2-3 multiple choice questions).
+
+1. Questions about details, vocabulary, or meaning;
+2. Include the correct answer and a short explanation.
+
+Tips:
+1. Reading time: less than 2 minutes;
+2. Tone of the story: natural, friendly, with a little humor, or, if possible, unexpected;
+3. Markdown formatting;
+4. Bold, italics, bullet points, test main points;
+5. Avoid using tables or other elements that are not appropriate for the Telegram post format.
+
+Each post must include:
+1. A short original story;
+2. A glossary with translations;
+3. At least one phrase or cultural element specific to the country.
