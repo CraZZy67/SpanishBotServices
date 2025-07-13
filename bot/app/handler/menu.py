@@ -128,7 +128,7 @@ async def menu_subscribe_handler(callback: CallbackQuery, text: dict, callback_d
         await callback.answer(text=text['dont_upgrade']['text'])
 
 
-@menu_router.callback_query(AlphaCallback.filter(F.group.in_(['locale', 'elc'])))
+@menu_router.callback_query(AlphaCallback.filter(F.group.in_(['elc'])))
 async def menu_subscribe_handler(callback: CallbackQuery, text: dict, callback_data: AlphaCallback):
     elc_markup = callback.message.reply_markup
 
