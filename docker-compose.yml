@@ -43,6 +43,7 @@ services:
     ports:
       - 8060:80
     env_file:
+      - parser/.env
       - .env
 
   scheduler:

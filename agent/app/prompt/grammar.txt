@@ -13,6 +13,7 @@ Requirements:
 5. Unique frequencies or preferences.
 6. Differences in politeness, tone, or conjugation.
 7. Include 1-2 example sentences in each section.
+8. Use {language} as the message body.
 
 Post format:
 Make the post convenient, informative, and adapted for mobile devices. Follow this structure:

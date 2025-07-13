@@ -1,5 +1,5 @@
 You are an experienced Spanish teacher and content creator.
-Create a mixed grammar and vocabulary quiz for the {languge} language level in Telegram.
+Create a mixed grammar and vocabulary quiz for the language {level} in Telegram.
 
 GOALS:
 1. To consolidate knowledge of the use of this grammar and vocabulary in everyday speech, including regional usage in {countries};
@@ -7,7 +7,8 @@ GOALS:
 
 Requirements:
 1. Choose a random Spanish learning topic and use it for the quiz;
-2. Include 3 to 5 multiple-choice questions.
+2. Include 3 to 5 multiple-choice questions;
+3. Use {language} as the message body.
 
 Each question should:
 1. Check for real-world usage (verb form, article, pronoun choice, word order, etc.);

@@ -1,59 +1,36 @@
 import requests
 from aiogram import Bot
 from aiogram.types import FSInputFile
+from aiogram.enums.parse_mode import ParseMode
 
 import asyncio
 import os
 import pycountry
-import io
 from zoneinfo import ZoneInfo
 from datetime import datetime, timedelta
 
 from db.queries import get_user, update_status, get_users
+from provider import Provider
 from settings import Settings
 from logger import main_logger
 
 
 class Scheduler:
     bot = Bot(token=os.getenv('TOKEN'))
-
-
+    
     @staticmethod
-    def check_user(user: int) -> bool:
+    def check_user(user: int) -> str:
         user_ = get_user(user=user)
 
         if user_[0].status != 'expiry':
             if user_[0].expiry > datetime.now():
-                return True
+                return user_[0].status
             else:
                 update_status(user=user_[0].user_id, status='expiry')
-                return False
+                return ''
         else:
             return False
-    
-    @staticmethod
-    def get_combinations(format: str) -> dict:
-        combinations = dict()
 
-        for dialect in Settings.DIALECTS:
-            combinations.update({dialect: {}})
-            for level in Settings.LEVELS:
-                combinations[dialect].update({level: {}})
-                for translation in Settings.TRANSLEITS:
-                    data = {
-                        'format': format,
-                        'level': level,
-                        'countries': dialect,
-                        'language': translation,
-                    }
-
-                    response = requests.post(Settings.URL, json=data).json()
-                    main_logger.debug(f'Содержимое: {response}')
-
-                    combinations[dialect][level].update({translation: response['answer']})
-        
-        return combinations
-    
     @staticmethod
     def decode_info(user):
         main_logger.debug(f'User decode: {user.user_id}')
@@ -88,7 +65,7 @@ class Scheduler:
                 main_logger.debug(f'Разница 1: {diff.total_seconds()}')
 
                 await asyncio.sleep(diff.total_seconds())
-                combinations = cls.get_combinations(format=topic)
+                Provider.generate_combinations(format=topic)
                 
                 tomorrow = tomorrow.replace(hour=Settings.POST_TIME.hour, minute=Settings.POST_TIME.minute)
 
@@ -99,9 +76,11 @@ class Scheduler:
                 for user in get_users():
                     user = cls.decode_info(user=user[0])
                     if cls.check_user(user[0]):
-                        text = combinations[user[5]][user[4]][user[3]]
+                        texts = Provider.get_text(user=user, user_status=cls.check_user(user[0]))
 
-                        await cls.bot.send_message(chat_id=user[0], text=combinations.replace('\n---', '').replace('#', ''), parse_mode='Markdown')
+                        for text in texts:
+                            await cls.bot.send_message(chat_id=user[0], text=text.replace('\n---', '').replace('#', ''), parse_mode=ParseMode.MARKDOWN_V2)
+                            main_logger.debug(f'Сообщение {user[0]}\n\nТекст: {text.replace('\n---', '').replace('#', '')}')
                     
                 tomorrow = tomorrow.replace(hour=Settings.VIDEO_TIME.hour, minute=Settings.VIDEO_TIME.minute)
 

@@ -74,6 +74,14 @@ def update_subscribe(payment: SuccessfulPayment, user: int):
     expiry = datetime.datetime.now() + datetime.timedelta(days=float(payment.invoice_payload))
     
     with Session(engine) as session:
-        session.execute(update(Payment).where(Payment.user_id == user).values(payment_id=payment.provider_payment_charge_id,
-                                                                              expiry=expiry, status='Paid'))
+        if payment.ttotal_amount == 20000:
+            session.execute(update(Payment).where(Payment.user_id == user).values(payment_id=payment.provider_payment_charge_id,
+                                                                                  expiry=expiry, status='Basic'))
+        elif payment.ttotal_amount == 30000:
+            session.execute(update(Payment).where(Payment.user_id == user).values(payment_id=payment.provider_payment_charge_id,
+                                                                                  expiry=expiry, status='Premium'))
+        else:
+            session.execute(update(Payment).where(Payment.user_id == user).values(payment_id=payment.provider_payment_charge_id,
+                                                                                  expiry=expiry, status='Max'))
+        
         session.commit()

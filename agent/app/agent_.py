@@ -8,17 +8,17 @@ from logger import main_logger
 
 class Agent:
 
-    client = OpenAI(api_key=os.getenv('API_KEY'))
+    client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
     model = 'gpt-4o-mini'
 
     @staticmethod
     def get_theme(format: str):
-        with open(f'{format.lower()}.txt', 'r', encoding='utf-8') as file:
+        with open(f'theme/{format.lower()}.txt', 'r', encoding='utf-8') as file:
             return random.choice(file.readlines())
     
     @staticmethod
     def get_prompt(format: str):
-        with open(f'{format.lower()}.txt', 'r', encoding='utf-8') as file:
+        with open(f'prompt/{format.lower()}.txt', 'r', encoding='utf-8') as file:
             return file.read()
 
     @classmethod
@@ -39,6 +39,6 @@ class Agent:
                 language=language
             )
 
-        response = cls.client.responses.create(model=cls.model, input=text)
+        response = cls.client.responses.create(model=cls.model, input=text, tools=[{"type": "web_search_preview"}])
 
         return {'answer': response.output_text}
