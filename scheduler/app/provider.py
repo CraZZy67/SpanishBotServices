@@ -25,12 +25,13 @@ class Provider:
                         'language': translation,
                     }
 
-                    response = requests.post(Settings.URL, json=data).json()
+                    response = requests.post(Settings.URL, json=data)
+                    main_logger.debug(response.text)
                     sleep(21.0)
 
                     main_logger.debug(f'Warp combination generating...')
 
-                    combinations[dialect][level].update({translation: response['answer']})
+                    combinations[dialect][level].update({translation: response.json()['answer']})
         
         for added in ["Quiz", "Declension"]:
             added_combinations.update({added: {}})

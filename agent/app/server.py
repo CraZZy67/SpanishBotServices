@@ -15,4 +15,5 @@ app = FastAPI(debug=True)
 @app.post('/generate/')
 def generate_content(prompt: PromptParam):
 
-    return Agent.generate_post(**prompt.model_dump())
+    return {"answer": "Сгенерированный текст"}
+    # return Agent.generate_post(**prompt.model_dump())

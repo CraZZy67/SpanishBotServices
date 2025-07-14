@@ -8,9 +8,9 @@ class Settings:
     DB_SYSTEM = 'postgresql'
     DB_DRIVER = 'psycopg2'
 
-    CONTENT_TIME = time(hour=20, minute=18)
-    POST_TIME = time(hour=20, minute=20)
-    VIDEO_TIME = time(hour=20, minute=21)
+    CONTENT_TIME = time(hour=19, minute=20)
+    POST_TIME = time(hour=19, minute=30)
+    VIDEO_TIME = time(hour=5, minute=6)
 
     TOPICS = ['Grammar', 'Story', 'Vocabulary']
     DIALECTS = ['Mexico', 'Spain']
