@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
     container_name: adminer
     ports:
-      - 127.0.0.1:8070:8080
+      - 0.0.0.0:8070:8080
     depends_on:
       - db
 
