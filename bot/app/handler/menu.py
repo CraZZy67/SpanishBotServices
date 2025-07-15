@@ -44,7 +44,7 @@ async def menu_handler(callback: CallbackQuery, text: dict, callback_data: Grome
         grome_markup = grome_kb(buttons=text['menu_subscribe']['buttons'], group='menu_subscribe')
         grome_markup.inline_keyboard.append(back.inline_keyboard[0])
         
-        if status == 'Paid':
+        if status != 'Expiry':
             necessary_button = grome_markup.model_copy()
             necessary_button.inline_keyboard[0].pop(1)
 

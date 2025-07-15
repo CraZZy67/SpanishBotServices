@@ -36,9 +36,9 @@ class Provider:
         for added in ["Quiz", "Declension"]:
             added_combinations.update({added: {}})
             for dialect in Settings.DIALECTS:
-                added_combinations.update({dialect: {}})
+                added_combinations[added].update({dialect: {}})
                 for level in Settings.LEVELS:
-                    added_combinations[dialect].update({level: {}})
+                    added_combinations[added][dialect].update({level: {}})
                     for translation in Settings.TRANSLEITS:
                         data = {
                             'format': added,
@@ -52,7 +52,7 @@ class Provider:
 
                         main_logger.debug(f'Added combination generating...')
 
-                        added_combinations[dialect][level].update({translation: response['answer']})
+                        added_combinations[added][dialect][level].update({translation: response['answer']})
 
         cls.combinations = combinations, added_combinations
     

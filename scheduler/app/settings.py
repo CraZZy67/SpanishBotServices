@@ -8,9 +8,9 @@ class Settings:
     DB_SYSTEM = 'postgresql'
     DB_DRIVER = 'psycopg2'
 
-    CONTENT_TIME = time(hour=20, minute=18)
-    POST_TIME = time(hour=20, minute=20)
-    VIDEO_TIME = time(hour=20, minute=21)
+    CONTENT_TIME = time(hour=22, minute=35)
+    POST_TIME = time(hour=22, minute=40)
+    VIDEO_TIME = time(hour=22, minute=50)
 
     TOPICS = ['Grammar', 'Story', 'Vocabulary']
     DIALECTS = ['Mexico', 'Spain']
@@ -24,5 +24,5 @@ class Settings:
         'Trial': {'warp': [8], 'quiz': [1], 'declension': [0], 'phrases': [0]},
         'Basic': {'warp': [8], 'quiz': [1], 'declension': [0], 'phrases': [0]},
         'Premium': {'warp': [8], 'quiz': [1, 3, 5], 'declension': [2], 'phrases': [0]},
-        'Basic': {'warp': [8], 'quiz': [8], 'declension': [6, 2, 4], 'phrases': [0]}
+        'Max': {'warp': [8], 'quiz': [8], 'declension': [6, 2, 4], 'phrases': [0]}
     }

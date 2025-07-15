@@ -22,11 +22,11 @@ class Scheduler:
     def check_user(user: int) -> str:
         user_ = get_user(user=user)
 
-        if user_[0].status != 'expiry':
+        if user_[0].status != 'Expiry':
             if user_[0].expiry > datetime.now():
                 return user_[0].status
             else:
-                update_status(user=user_[0].user_id, status='expiry')
+                update_status(user=user_[0].user_id, status='Expiry')
                 return ''
         else:
             return False
@@ -79,7 +79,8 @@ class Scheduler:
                         texts = Provider.get_text(user=user, user_status=cls.check_user(user[0]))
 
                         for text in texts:
-                            await cls.bot.send_message(chat_id=user[0], text=text.replace('\n---', '').replace('#', ''), parse_mode=ParseMode.MARKDOWN_V2)
+                            text = text.replace('\n---', '').replace('#', '').replace('.', r'\.').replace('!', r'\!')
+                            await cls.bot.send_message(chat_id=user[0], text=text, parse_mode=ParseMode.MARKDOWN_V2)
                             main_logger.debug(f'Сообщение {user[0]}\n\nТекст: {text.replace('\n---', '').replace('#', '')}')
                     
                 tomorrow = tomorrow.replace(hour=Settings.VIDEO_TIME.hour, minute=Settings.VIDEO_TIME.minute)
