@@ -1,6 +1,7 @@
 import requests
 
 from datetime import datetime, date
+from zoneinfo import ZoneInfo
 from time import sleep
 
 from settings import Settings
@@ -59,14 +60,15 @@ class Provider:
     @classmethod
     def get_text(cls, user, user_status: str):
         text_list = list()
+        weekday = datetime.now(ZoneInfo("Europe/Moscow")).isoweekday()
 
-        if date.isoweekday() in Settings.SUBSCRIBE_PECULIARITIES[user_status]['warp'] or 8 in Settings.SUBSCRIBE_PECULIARITIES[user_status]['warp']:
+        if weekday in Settings.SUBSCRIBE_PECULIARITIES[user_status]['warp'] or 8 in Settings.SUBSCRIBE_PECULIARITIES[user_status]['warp']:
             text_list.append(cls.combinations[0][user[5]][user[4]][user[3]])
-        if date.isoweekday() in Settings.SUBSCRIBE_PECULIARITIES[user_status]['quiz'] or 8 in Settings.SUBSCRIBE_PECULIARITIES[user_status]['quiz']:
+        if weekday in Settings.SUBSCRIBE_PECULIARITIES[user_status]['quiz'] or 8 in Settings.SUBSCRIBE_PECULIARITIES[user_status]['quiz']:
             text_list.append(cls.combinations[1]['Quiz'][user[5]][user[4]][user[3]])
-        if date.isoweekday() in Settings.SUBSCRIBE_PECULIARITIES[user_status]['declension'] or 8 in Settings.SUBSCRIBE_PECULIARITIES[user_status]['declension']:
+        if weekday in Settings.SUBSCRIBE_PECULIARITIES[user_status]['declension'] or 8 in Settings.SUBSCRIBE_PECULIARITIES[user_status]['declension']:
             text_list.append(cls.combinations[1]['Declension'][user[5]][user[4]][user[3]])
-        if date.isoweekday() in Settings.SUBSCRIBE_PECULIARITIES[user_status]['phrases'] or 8 in Settings.SUBSCRIBE_PECULIARITIES[user_status]['phrases']:
+        if weekday in Settings.SUBSCRIBE_PECULIARITIES[user_status]['phrases'] or 8 in Settings.SUBSCRIBE_PECULIARITIES[user_status]['phrases']:
             text_list.append(cls.combinations[1]['Phrases'][user[5]][user[4]][user[3]])
 
         return text_list
