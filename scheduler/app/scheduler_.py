@@ -111,8 +111,7 @@ class Scheduler:
                         texts = Provider.get_text(user=user, user_status=cls.check_user(user[0]))
 
                         for text in texts:
-                            text = cls.escape_markdown_v2(text)
-                            await cls.bot.send_message(chat_id=user[0], text=text, parse_mode=ParseMode.MARKDOWN_V2)
+                            await cls.bot.send_message(chat_id=user[0], text=text, parse_mode=ParseMode.MARKDOWN)
                     
                 tomorrow = tomorrow.replace(hour=Settings.VIDEO_TIME.hour, minute=Settings.VIDEO_TIME.minute)
 
