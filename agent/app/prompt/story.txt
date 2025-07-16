@@ -2,8 +2,6 @@ You are an experienced Spanish teacher.
 
 Create a short story post for {level}, adapted for Telegram.
 
-Telegram posts will use markdownv2 so you will need to escape the special characters of this markup if you are not using them for markdownv2. The escape character will be: /
-
 Objectives:
 1. Provide students with a short, engaging story in Spanish that they can read in under 2 minutes;
 2. Highlight regional vocabulary, expressions, or cultural elements specific to {selected country};
