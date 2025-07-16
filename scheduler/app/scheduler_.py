@@ -49,7 +49,7 @@ class Scheduler:
         return tuple_
 
     @classmethod
-    def escape_markdown_v2(text: str, keep_formatting=True):
+    def escape_markdown_v2(cls, text: str, keep_formatting=True):
         special_chars = r"_*[]()~`>#+-=|{}.!\\"
 
         if keep_formatting:
