@@ -5,6 +5,7 @@ from aiogram.enums.parse_mode import ParseMode
 
 import asyncio
 import os
+import re
 import pycountry
 from zoneinfo import ZoneInfo
 from datetime import datetime, timedelta
@@ -46,6 +47,37 @@ class Scheduler:
             pycountry.countries.get(alpha_2=user.elc.split(',')[0]).name,
         )
         return tuple_
+
+    @classmethod
+    def escape_markdown_v2(text: str, keep_formatting=True):
+        special_chars = r"_*[]()~`>#+-=|{}.!\\"
+
+        if keep_formatting:
+            
+            formatting_patterns = [
+                r'(\*{1,3})(.+?)\1',       
+                r'(_{1,3})(.+?)\1',         
+                r'(\|\|)(.+?)\1',         
+                r'(`+)(.+?)\1',             
+            ]
+
+            placeholders = []
+
+            def placeholder_sub(match):
+                placeholders.append(match.group(0))
+                return f"\u0000{len(placeholders)-1}\u0000"
+
+            for pattern in formatting_patterns:
+                text = re.sub(pattern, placeholder_sub, text)
+
+            text = re.sub(f'([{re.escape(special_chars)}])', r'\\\1', text)
+
+            for i, original in enumerate(placeholders):
+                text = text.replace(f"\u0000{i}\u0000", original)
+
+            return text
+        else:
+            return re.sub(f'([{re.escape(special_chars)}])', r'\\\1', text)
     
     @classmethod
     async def start(cls):
@@ -79,8 +111,8 @@ class Scheduler:
                         texts = Provider.get_text(user=user, user_status=cls.check_user(user[0]))
 
                         for text in texts:
+                            text = cls.escape_markdown_v2(text)
                             await cls.bot.send_message(chat_id=user[0], text=text, parse_mode=ParseMode.MARKDOWN_V2)
-                            main_logger.debug(f'Сообщение {user[0]}\n\nТекст: {text.replace('\n---', '').replace('#', '')}')
                     
                 tomorrow = tomorrow.replace(hour=Settings.VIDEO_TIME.hour, minute=Settings.VIDEO_TIME.minute)
 
