@@ -12,6 +12,7 @@ Requirements:
 5. Provide 1-2 example sentences;
 6. Use a {language} translation for the message;
 7. If appropriate, show how the regional word differs in tone, politeness, or frequency of use from its standard counterpart.
+8. You must compose the text according to a strict format, the format: Solid text with basic punctuation marks, with paragraphs, without lists formatted with markdown, only lists using numbers or letters. Headings must be separated by paragraphs or spaces, headings must not be formatted with markdown, and you must also exclude separating the text with these symbols: ---. You can highlight words in bold and italics using markdown, but then you must ensure that all special symbols that require paired use are always written correctly, according to all the rules of markdown.
 
 Format:
 Make it mobile-friendly and easy to read.

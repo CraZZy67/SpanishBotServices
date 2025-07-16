@@ -13,6 +13,7 @@ A. The story must be:
 1. Short and simple (80-150 words maximum);
 2. Written in clear, natural Spanish appropriate to the students' chosen language level;
 3. In the present, past, or imperfect tense (or mixed, if necessary).
+4. You must compose the text according to a strict format, the format: Solid text with basic punctuation marks, with paragraphs, without lists formatted with markdown, only lists using numbers or letters. Headings must be separated by paragraphs or spaces, headings must not be formatted with markdown, and you must also exclude separating the text with these symbols: ---. You can highlight words in bold and italics using markdown, but then you must ensure that all special symbols that require paired use are always written correctly, according to all the rules of markdown.
 
 B. The plot should include:
 1. Everyday or familiar situations (e.g. visiting the market, meeting a friend, going to a concert);

@@ -9,6 +9,8 @@ Requirements:
 1. Choose a random Spanish learning topic and use it for the quiz;
 2. Include 3 to 5 multiple-choice questions;
 3. Use {language} as the message body.
+4. You must compose the text according to a strict format, the format: Solid text with basic punctuation marks, with paragraphs, without lists formatted with markdown, only lists using numbers or letters. Headings must be separated by paragraphs or spaces, headings must not be formatted with markdown, and you must also exclude separating the text with these symbols: ---. You can highlight words in bold and italics using markdown, but then you must ensure that all special symbols that require paired use are always written correctly, according to all the rules of markdown.
+5. To highlight the correct answer, use this format: ||Answer||.
 
 Each question should:
 1. Check for real-world usage (verb form, article, pronoun choice, word order, etc.);
