@@ -1,5 +1,7 @@
 You are an experienced Spanish teacher. Create a detailed article about the conjugation of a verb used in everyday speech in {countries}, adapted for {level} learners.
 
+Telegram posts will use markdownv2 so you will need to escape the special characters of this markup if you are not using them for markdownv2. The escape character will be: /
+
 Instructions:
 1. Briefly describe the verb:
 - Infinitive + translation

@@ -79,7 +79,6 @@ class Scheduler:
                         texts = Provider.get_text(user=user, user_status=cls.check_user(user[0]))
 
                         for text in texts:
-                            text = text.replace('\n---', '').replace('#', '').replace('.', r'\.').replace('!', r'\!')
                             await cls.bot.send_message(chat_id=user[0], text=text, parse_mode=ParseMode.MARKDOWN_V2)
                             main_logger.debug(f'Сообщение {user[0]}\n\nТекст: {text.replace('\n---', '').replace('#', '')}')
                     
